@@ -1,0 +1,30 @@
+body {
+  margin: auto;
+  max-width: 1176px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
+#content {
+  margin: auto 8px;
+}
+
+.keyword:after {
+  content: " X";
+}
+
+.row {
+  align-items: flex-start;
+  display: flex;
+}
