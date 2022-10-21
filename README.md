@@ -1,10 +1,10 @@
 # Prompter
 
-Prompter is a web-based tool for AUTOMATIC1111/stable-diffusion-webui prompt.
+Prompter is a web-based tool for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) prompt.
 
 https://asaitoshiya.github.io/prompter/
 
-![screenshot.png](screenshot.png)
+<kbd>![screenshot.png](screenshot.png)</kbd>
 
 _Note: This does not work in Firefox and Safari._
 
