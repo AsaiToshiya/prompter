@@ -2,7 +2,7 @@ let fileHandle = null;
 
 const addKeyword = (keyword, divId, textareaId) => {
   const div = document.getElementById(divId);
-  const button = createButton(keyword, divId, textareaId);
+  const button = createButton(keyword.trim(), divId, textareaId);
   div.appendChild(button);
   div.appendChild(document.createTextNode("\n"));
 };
