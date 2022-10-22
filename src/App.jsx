@@ -105,7 +105,7 @@ function App() {
     const newInput = createInput(inputId);
     const input = document.getElementById(inputId);
     replaceNode(newInput, input);
-    addKeyword(input.value, divId, textareaId);
+    addKeywords(input.value.split(","), divId, textareaId);
     update(divId, textareaId);
   };
 
