@@ -16,7 +16,7 @@ textarea {
   resize: none;
 }
 
-#content {
+#root {
   margin: auto 8px;
 }
 
