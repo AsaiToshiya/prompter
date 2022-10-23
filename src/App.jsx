@@ -167,9 +167,9 @@ function App() {
     <>
       <h1>Prompter</h1>
 
-      <button onClick={handleNew}>New</button>
-      <button onClick={handleOpen}>Open</button>
-      <button onClick={handleSave}>Save</button>
+      <button onClick={handleNew}>New</button>&nbsp;
+      <button onClick={handleOpen}>Open</button>&nbsp;
+      <button onClick={handleSave}>Save</button>&nbsp;
       <button onClick={handleSaveAs}>Save As</button>
 
       <h2>Prompt</h2>
