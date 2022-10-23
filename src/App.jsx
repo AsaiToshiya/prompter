@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import Prompt from "./components/Prompt";
 
 let fileHandle = null;
 
@@ -101,19 +102,6 @@ function App() {
     replaceNode(newTextarea, textarea);
   };
 
-  const handleAdd = (inputId, divId, textareaId) => {
-    const newInput = createInput(inputId);
-    const input = document.getElementById(inputId);
-    replaceNode(newInput, input);
-    addKeywords(input.value.split(","), divId, textareaId);
-    update(divId, textareaId);
-  };
-
-  const handleCopy = (textareaId) => {
-    const textarea = document.getElementById(textareaId);
-    navigator.clipboard.writeText(textarea.value);
-  };
-
   const handleNew = () => {
     fileHandle = null;
     reset();
@@ -173,48 +161,10 @@ function App() {
       <button onClick={handleSaveAs}>Save As</button>
 
       <h2>Prompt</h2>
-      Keyword:
-      <div class="row">
-        <input type="text" id="prompt-keyword" />
-        &nbsp;
-        <button
-          onClick={() => handleAdd('prompt-keyword', 'prompt-keywords', 'prompt-result')}
-        >
-          Add
-        </button>
-      </div>
-      <br />
-      Keywords:
-      <div id="prompt-keywords"></div>
-      <br />
-      Result:
-      <div class="row">
-        <textarea id="prompt-result" readonly></textarea>
-        &nbsp;
-        <button onClick={() => handleCopy('prompt-result')}>Copy</button>
-      </div>
+      <Prompt id="prompt" />
 
       <h2>Negative prompt</h2>
-      Keyword:
-      <div class="row">
-        <input type="text" id="negative-prompt-keyword" />
-        &nbsp;
-        <button
-          onClick={() => handleAdd('negative-prompt-keyword', 'negative-prompt-keywords', 'negative-prompt-result')}
-        >
-          Add
-        </button>
-      </div>
-      <br />
-      Keywords:
-      <div id="negative-prompt-keywords"></div>
-      <br />
-      Result:
-      <div class="row">
-        <textarea id="negative-prompt-result"></textarea>
-        &nbsp;
-        <button onClick={() => handleCopy('negative-prompt-result')}>Copy</button>
-      </div>
+      <Prompt id="negative-prompt" />
     </>
   );
 }
