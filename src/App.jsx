@@ -1,9 +1,12 @@
 import logo from './logo.svg';
+import { createSignal } from "solid-js";
 import Prompt from "./components/Prompt";
 
 let fileHandle = null;
 
 function App() {
+  const [key, setKey] = createSignal([{}]);
+
   const addKeyword = (keyword, divId, textareaId) => {
     const div = document.getElementById(divId);
     const button = createButton(keyword.trim(), divId, textareaId);
@@ -46,30 +49,7 @@ function App() {
   };
 
   const reset = () => {
-    replaceNode(
-      createInput("prompt-keyword"),
-      document.getElementById("prompt-keyword")
-    );
-    replaceNode(
-      createDiv("prompt-keywords"),
-      document.getElementById("prompt-keywords")
-    );
-    replaceNode(
-      createTextarea("prompt-result"),
-      document.getElementById("prompt-result")
-    );
-    replaceNode(
-      createInput("negative-prompt-keyword"),
-      document.getElementById("negative-prompt-keyword")
-    );
-    replaceNode(
-      createDiv("negative-prompt-keywords"),
-      document.getElementById("negative-prompt-keywords")
-    );
-    replaceNode(
-      createTextarea("negative-prompt-result"),
-      document.getElementById("negative-prompt-result")
-    );
+    setKey([{}]);
   };
 
   const save = async () => {
@@ -161,10 +141,10 @@ function App() {
       <button onClick={handleSaveAs}>Save As</button>
 
       <h2>Prompt</h2>
-      <Prompt id="prompt" />
+      <For each={key()}>{() => <Prompt id="prompt" />}</For>
 
       <h2>Negative prompt</h2>
-      <Prompt id="negative-prompt" />
+      <For each={key()}>{() => <Prompt id="negative-prompt" />}</For>
     </>
   );
 }
