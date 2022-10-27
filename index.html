@@ -22,6 +22,10 @@
       <div class="row">
         <input type="text" id="prompt-keyword" />
         &nbsp;
+        <button onclick="handleIncreaseAttention('prompt-keyword')">
+          Increase Attention
+        </button>
+        &nbsp;
         <button
           onclick="handleAdd('prompt-keyword', 'prompt-keywords', 'prompt-result')"
         >
@@ -43,6 +47,10 @@
       Keyword:
       <div class="row">
         <input type="text" id="negative-prompt-keyword" />
+        &nbsp;
+        <button onclick="handleIncreaseAttention('negative-prompt-keyword')">
+          Increase Attention
+        </button>
         &nbsp;
         <button
           onclick="handleAdd('negative-prompt-keyword', 'negative-prompt-keywords', 'negative-prompt-result')"

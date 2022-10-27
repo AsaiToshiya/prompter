@@ -111,6 +111,14 @@ const handleCopy = (textareaId) => {
   navigator.clipboard.writeText(textarea.value);
 };
 
+const handleIncreaseAttention = (inputId) => {
+  const input = document.getElementById(inputId);
+  const newInput = Object.assign(createInput(inputId), {
+    value: `(${input.value})`,
+  });
+  replaceNode(newInput, input);
+};
+
 const handleNew = () => {
   fileHandle = null;
   reset();
