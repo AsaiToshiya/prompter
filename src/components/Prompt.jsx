@@ -1,4 +1,8 @@
+import { createSignal } from "solid-js";
+
 function Prompt(props) {
+  const [keyword, setKeyword] = createSignal("");
+
   const addKeyword = (keyword, divId, textareaId) => {
     const div = document.getElementById(divId);
     const button = createButton(keyword.trim(), divId, textareaId);
@@ -49,12 +53,10 @@ function Prompt(props) {
     replaceNode(newTextarea, textarea);
   };
 
-  const handleAdd = (inputId, divId, textareaId) => {
-    const newInput = createInput(inputId);
-    const input = document.getElementById(inputId);
-    replaceNode(newInput, input);
-    addKeywords(input.value.split(","), divId, textareaId);
+  const handleAdd = (divId, textareaId) => {
+    addKeywords(keyword().split(","), divId, textareaId);
     update(divId, textareaId);
+    setKeyword("");
   };
 
   const handleCopy = (textareaId) => {
@@ -72,10 +74,14 @@ function Prompt(props) {
     <>
       Keyword:
       <div class="row">
-        <input type="text" id={`${props.id}-keyword`} />
+        <input
+          type="text"
+          value={keyword()}
+          onInput={(e) => setKeyword(e.target.value)}
+        />
         &nbsp;
         <button
-          onClick={() => handleAdd(`${props.id}-keyword`, `${props.id}-keywords`, `${props.id}-result`)}
+          onClick={() => handleAdd(`${props.id}-keywords`, `${props.id}-result`)}
         >
           Add
         </button>
