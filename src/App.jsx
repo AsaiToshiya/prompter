@@ -82,6 +82,14 @@ function App() {
     replaceNode(newTextarea, textarea);
   };
 
+  const handleNegativePromptAdd = (keyword) => {
+    addKeywords(
+      keyword.split(","),
+      "negative-prompt-keywords",
+      "negative-prompt-result"
+    );
+  };
+
   const handleNew = () => {
     fileHandle = null;
     reset();
@@ -108,6 +116,10 @@ function App() {
       "negative-prompt-result"
     );
     update("negative-prompt-keywords", "negative-prompt-result");
+  };
+
+  const handlePromptAdd = (keyword) => {
+    addKeywords(keyword.split(","), "prompt-keywords", "prompt-result");
   };
 
   const handleRemove = (button, divId, textareaId) => {
@@ -141,10 +153,14 @@ function App() {
       <button onClick={handleSaveAs}>Save As</button>
 
       <h2>Prompt</h2>
-      <For each={key()}>{() => <Prompt id="prompt" />}</For>
+      <For each={key()}>
+        {() => <Prompt id="prompt" onAdd={handlePromptAdd} />}
+      </For>
 
       <h2>Negative prompt</h2>
-      <For each={key()}>{() => <Prompt id="negative-prompt" />}</For>
+      <For each={key()}>
+        {() => <Prompt id="negative-prompt" onAdd={handleNegativePromptAdd} />}
+      </For>
     </>
   );
 }
