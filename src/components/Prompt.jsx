@@ -63,12 +63,6 @@ function Prompt(props) {
     navigator.clipboard.writeText(textarea.value);
   };
 
-  const handleRemove = (button, divId, textareaId) => {
-    button.nextSibling.remove();
-    button.remove();
-    update(divId, textareaId);
-  };
-
   return (
     <>
       Keyword:
