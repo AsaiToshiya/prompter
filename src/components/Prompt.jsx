@@ -53,7 +53,7 @@ function Prompt(props) {
     replaceNode(newTextarea, textarea);
   };
 
-  const handleAdd = (divId, textareaId) => {
+  const handleAdd = () => {
     props.onAdd?.(keyword());
     setKeyword("");
   };
@@ -79,11 +79,7 @@ function Prompt(props) {
           onInput={(e) => setKeyword(e.target.value)}
         />
         &nbsp;
-        <button
-          onClick={() => handleAdd(`${props.id}-keywords`, `${props.id}-result`)}
-        >
-          Add
-        </button>
+        <button onClick={handleAdd}>Add</button>
       </div>
       <br />
       Keywords:
