@@ -55,7 +55,6 @@ function Prompt(props) {
 
   const handleAdd = (divId, textareaId) => {
     props.onAdd?.(keyword());
-    update(divId, textareaId);
     setKeyword("");
   };
 

@@ -88,6 +88,7 @@ function App() {
       "negative-prompt-keywords",
       "negative-prompt-result"
     );
+    update("negative-prompt-keywords", "negative-prompt-result");
   };
 
   const handleNew = () => {
@@ -120,6 +121,7 @@ function App() {
 
   const handlePromptAdd = (keyword) => {
     addKeywords(keyword.split(","), "prompt-keywords", "prompt-result");
+    update("prompt-keywords", "prompt-result");
   };
 
   const handleRemove = (button, divId, textareaId) => {
