@@ -11,48 +11,11 @@ function App() {
   const [promptKeywords, setPromptKeywords] = createSignal([]);
   const [promptResult, setPromptResult] = createSignal("");
 
-  const addKeyword = (keyword, divId, textareaId, setter) => {
-    const div = document.getElementById(divId);
-    const button = createButton(keyword.trim(), divId, textareaId, setter);
-    div.appendChild(button);
-    div.appendChild(document.createTextNode("\n"));
-  };
-
   const addKeywords = (keywords, divId, textareaId, setter, setterKeywords) => {
     setterKeywords((prev) => [
       ...prev,
       ...keywords.map((keyword) => keyword.trim()),
     ]);
-  };
-
-  const createButton = (keyword, divId, textareaId, setter) =>
-    Object.assign(document.createElement("button"), {
-      className: "keyword",
-      innerText: keyword,
-      onclick: ({ target }) => {
-        handleRemove(target, divId, textareaId, setter);
-      },
-    });
-
-  const createDiv = (id) =>
-    Object.assign(document.createElement("div"), {
-      id,
-    });
-
-  const createInput = (id) =>
-    Object.assign(document.createElement("input"), {
-      id,
-      type: "text",
-    });
-
-  const createTextarea = (id) =>
-    Object.assign(document.createElement("textarea"), {
-      id,
-      readonly: true,
-    });
-
-  const replaceNode = (newNode, oldNode) => {
-    oldNode.parentNode.replaceChild(newNode, oldNode);
   };
 
   const reset = () => {
