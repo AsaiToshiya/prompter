@@ -6,24 +6,28 @@ let fileHandle = null;
 
 function App() {
   const [key, setKey] = createSignal([{}]);
+  const [negativePromptResult, setNegativePromptResult] = createSignal("");
+  const [promptResult, setPromptResult] = createSignal("");
 
-  const addKeyword = (keyword, divId, textareaId) => {
+  const addKeyword = (keyword, divId, textareaId, setter) => {
     const div = document.getElementById(divId);
-    const button = createButton(keyword.trim(), divId, textareaId);
+    const button = createButton(keyword.trim(), divId, textareaId, setter);
     div.appendChild(button);
     div.appendChild(document.createTextNode("\n"));
   };
 
-  const addKeywords = (keywords, divId, textareaId) => {
-    keywords.forEach((keyword) => addKeyword(keyword, divId, textareaId));
+  const addKeywords = (keywords, divId, textareaId, setter) => {
+    keywords.forEach((keyword) =>
+      addKeyword(keyword, divId, textareaId, setter)
+    );
   };
 
-  const createButton = (keyword, divId, textareaId) =>
+  const createButton = (keyword, divId, textareaId, setter) =>
     Object.assign(document.createElement("button"), {
       className: "keyword",
       innerText: keyword,
       onclick: ({ target }) => {
-        handleRemove(target, divId, textareaId);
+        handleRemove(target, divId, textareaId, setter);
       },
     });
 
@@ -50,6 +54,8 @@ function App() {
 
   const reset = () => {
     setKey([{}]);
+    setNegativePromptResult("");
+    setPromptResult("");
   };
 
   const save = async () => {
@@ -73,22 +79,22 @@ function App() {
     return [...div.children].map((child) => child.innerText);
   };
 
-  const update = (divId, textareaId) => {
-    const newTextarea = createTextarea(textareaId);
-    newTextarea.appendChild(
-      document.createTextNode(toKeywordArray(divId).join(", "))
-    );
-    const textarea = document.getElementById(textareaId);
-    replaceNode(newTextarea, textarea);
+  const update = (divId, textareaId, setter) => {
+    setter(toKeywordArray(divId).join(", "));
   };
 
   const handleNegativePromptAdd = (keyword) => {
     addKeywords(
       keyword.split(","),
       "negative-prompt-keywords",
-      "negative-prompt-result"
+      "negative-prompt-result",
+      setNegativePromptResult
     );
-    update("negative-prompt-keywords", "negative-prompt-result");
+    update(
+      "negative-prompt-keywords",
+      "negative-prompt-result",
+      setNegativePromptResult
+    );
   };
 
   const handleNew = () => {
@@ -109,25 +115,40 @@ function App() {
 
     const data = JSON.parse(contents);
     reset();
-    addKeywords(data.prompt.keywords, "prompt-keywords", "prompt-result");
-    update("prompt-keywords", "prompt-result");
+    addKeywords(
+      data.prompt.keywords,
+      "prompt-keywords",
+      "prompt-result",
+      setPromptResult
+    );
+    update("prompt-keywords", "prompt-result", setPromptResult);
     addKeywords(
       data.negativePrompt.keywords,
       "negative-prompt-keywords",
-      "negative-prompt-result"
+      "negative-prompt-result",
+      setNegativePromptResult
     );
-    update("negative-prompt-keywords", "negative-prompt-result");
+    update(
+      "negative-prompt-keywords",
+      "negative-prompt-result",
+      setNegativePromptResult
+    );
   };
 
   const handlePromptAdd = (keyword) => {
-    addKeywords(keyword.split(","), "prompt-keywords", "prompt-result");
-    update("prompt-keywords", "prompt-result");
+    addKeywords(
+      keyword.split(","),
+      "prompt-keywords",
+      "prompt-result",
+      setPromptResult
+    );
+    update("prompt-keywords", "prompt-result", setPromptResult);
   };
 
-  const handleRemove = (button, divId, textareaId) => {
+  const handleRemove = (button, divId, textareaId, setter) => {
     button.nextSibling.remove();
     button.remove();
-    update(divId, textareaId);
+    update(divId, textareaId, setter);
   };
 
   const handleSave = async () => {
@@ -156,12 +177,20 @@ function App() {
 
       <h2>Prompt</h2>
       <For each={key()}>
-        {() => <Prompt id="prompt" onAdd={handlePromptAdd} />}
+        {() => (
+          <Prompt id="prompt" onAdd={handlePromptAdd} result={promptResult} />
+        )}
       </For>
 
       <h2>Negative prompt</h2>
       <For each={key()}>
-        {() => <Prompt id="negative-prompt" onAdd={handleNegativePromptAdd} />}
+        {() => (
+          <Prompt
+            id="negative-prompt"
+            onAdd={handleNegativePromptAdd}
+            result={negativePromptResult}
+          />
+        )}
       </For>
     </>
   );

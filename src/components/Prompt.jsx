@@ -9,8 +9,7 @@ function Prompt(props) {
   };
 
   const handleCopy = (textareaId) => {
-    const textarea = document.getElementById(textareaId);
-    navigator.clipboard.writeText(textarea.value);
+    navigator.clipboard.writeText(props.result());
   };
 
   return (
@@ -31,7 +30,11 @@ function Prompt(props) {
       <br />
       Result:
       <div class="row">
-        <textarea id={`${props.id}-result`} readonly></textarea>
+        <textarea
+          id={`${props.id}-result`}
+          readonly
+          value={props.result()}
+        ></textarea>
         &nbsp;
         <button onClick={() => handleCopy(`${props.id}-result`)}>Copy</button>
       </div>
