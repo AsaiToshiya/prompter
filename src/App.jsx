@@ -11,7 +11,7 @@ function App() {
   const [promptKeywords, setPromptKeywords] = createSignal([]);
   const [promptResult, setPromptResult] = createSignal("");
 
-  const addKeywords = (keywords, divId, textareaId, setter, setterKeywords) => {
+  const addKeywords = (keywords, setterKeywords) => {
     setterKeywords((prev) => [
       ...prev,
       ...keywords.map((keyword) => keyword.trim()),
@@ -52,13 +52,7 @@ function App() {
   };
 
   const handleNegativePromptAdd = (keyword) => {
-    addKeywords(
-      keyword.split(","),
-      "negative-prompt-keywords",
-      "negative-prompt-result",
-      setNegativePromptResult,
-      setNegativePromptKeywords
-    );
+    addKeywords(keyword.split(","), setNegativePromptKeywords);
     update(
       "negative-prompt-keywords",
       "negative-prompt-result",
@@ -97,21 +91,9 @@ function App() {
 
     const data = JSON.parse(contents);
     reset();
-    addKeywords(
-      data.prompt.keywords,
-      "prompt-keywords",
-      "prompt-result",
-      setPromptResult,
-      setPromptKeywords
-    );
+    addKeywords(data.prompt.keywords, setPromptKeywords);
     update("prompt-keywords", "prompt-result", setPromptResult, promptKeywords);
-    addKeywords(
-      data.negativePrompt.keywords,
-      "negative-prompt-keywords",
-      "negative-prompt-result",
-      setNegativePromptResult,
-      setNegativePromptKeywords
-    );
+    addKeywords(data.negativePrompt.keywords, setNegativePromptKeywords);
     update(
       "negative-prompt-keywords",
       "negative-prompt-result",
@@ -121,13 +103,7 @@ function App() {
   };
 
   const handlePromptAdd = (keyword) => {
-    addKeywords(
-      keyword.split(","),
-      "prompt-keywords",
-      "prompt-result",
-      setPromptResult,
-      setPromptKeywords
-    );
+    addKeywords(keyword.split(","), setPromptKeywords);
     update("prompt-keywords", "prompt-result", setPromptResult, promptKeywords);
   };
 
