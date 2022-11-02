@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, Index } from "solid-js";
 
 function Prompt(props) {
   const [keyword, setKeyword] = createSignal("");
@@ -26,7 +26,18 @@ function Prompt(props) {
       </div>
       <br />
       Keywords:
-      <div id={`${props.id}-keywords`}></div>
+      <div id={`${props.id}-keywords`}>
+        <Index each={props.keywords()}>
+          {(keyword, i) => (
+            <>
+              <button class="keyword" onClick={[props.onRemove, i]}>
+                {keyword()}
+              </button>
+              {"\n"}
+            </>
+          )}
+        </Index>
+      </div>
       <br />
       Result:
       <div class="row">
