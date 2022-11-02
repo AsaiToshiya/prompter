@@ -29,10 +29,13 @@ function App() {
   const save = async () => {
     const data = {
       prompt: {
-        keywords: toKeywordArray("prompt-keywords"),
+        keywords: toKeywordArray("prompt-keywords", promptKeywords),
       },
       negativePrompt: {
-        keywords: toKeywordArray("negative-prompt-keywords"),
+        keywords: toKeywordArray(
+          "negative-prompt-keywords",
+          negativePromptKeywords
+        ),
       },
     };
 
@@ -42,13 +45,10 @@ function App() {
     await writable.close();
   };
 
-  const toKeywordArray = (divId) => {
-    const div = document.getElementById(divId);
-    return [...div.children].map((child) => child.innerText);
-  };
+  const toKeywordArray = (divId, keywords) => keywords();
 
-  const update = (divId, textareaId, setter) => {
-    setter(toKeywordArray(divId).join(", "));
+  const update = (divId, textareaId, setter, keywords) => {
+    setter(toKeywordArray(divId, keywords).join(", "));
   };
 
   const handleNegativePromptAdd = (keyword) => {
@@ -62,7 +62,8 @@ function App() {
     update(
       "negative-prompt-keywords",
       "negative-prompt-result",
-      setNegativePromptResult
+      setNegativePromptResult,
+      negativePromptKeywords
     );
   };
 
@@ -73,7 +74,8 @@ function App() {
       "negative-prompt-result",
       setNegativePromptResult,
       index,
-      setNegativePromptKeywords
+      setNegativePromptKeywords,
+      negativePromptKeywords
     );
   };
 
@@ -102,7 +104,7 @@ function App() {
       setPromptResult,
       setPromptKeywords
     );
-    update("prompt-keywords", "prompt-result", setPromptResult);
+    update("prompt-keywords", "prompt-result", setPromptResult, promptKeywords);
     addKeywords(
       data.negativePrompt.keywords,
       "negative-prompt-keywords",
@@ -113,7 +115,8 @@ function App() {
     update(
       "negative-prompt-keywords",
       "negative-prompt-result",
-      setNegativePromptResult
+      setNegativePromptResult,
+      negativePromptKeywords
     );
   };
 
@@ -125,7 +128,7 @@ function App() {
       setPromptResult,
       setPromptKeywords
     );
-    update("prompt-keywords", "prompt-result", setPromptResult);
+    update("prompt-keywords", "prompt-result", setPromptResult, promptKeywords);
   };
 
   const handlePromptRemove = (index) => {
@@ -135,7 +138,8 @@ function App() {
       "prompt-result",
       setPromptResult,
       index,
-      setPromptKeywords
+      setPromptKeywords,
+      promptKeywords
     );
   };
 
@@ -145,13 +149,14 @@ function App() {
     textareaId,
     setter,
     index,
-    setterKeywords
+    setterKeywords,
+    keywords
   ) => {
     setterKeywords((prev) => [
       ...prev.slice(0, index),
       ...prev.slice(index + 1),
     ]);
-    update(divId, textareaId, setter);
+    update(divId, textareaId, setter, keywords);
   };
 
   const handleSave = async () => {
