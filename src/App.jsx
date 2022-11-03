@@ -29,13 +29,10 @@ function App() {
   const save = async () => {
     const data = {
       prompt: {
-        keywords: toKeywordArray("prompt-keywords", promptKeywords),
+        keywords: promptKeywords(),
       },
       negativePrompt: {
-        keywords: toKeywordArray(
-          "negative-prompt-keywords",
-          negativePromptKeywords
-        ),
+        keywords: negativePromptKeywords(),
       },
     };
 
@@ -45,10 +42,8 @@ function App() {
     await writable.close();
   };
 
-  const toKeywordArray = (divId, keywords) => keywords();
-
   const update = (divId, textareaId, setter, keywords) => {
-    setter(toKeywordArray(divId, keywords).join(", "));
+    setter(keywords().join(", "));
   };
 
   const handleNegativePromptAdd = (keyword) => {
