@@ -52,15 +52,11 @@ function App() {
   };
 
   const handleNegativePromptRemove = (index) => {
-    handleRemove(
-      null,
-      "negative-prompt-keywords",
-      "negative-prompt-result",
-      setNegativePromptResult,
-      index,
-      setNegativePromptKeywords,
-      negativePromptKeywords
-    );
+    setNegativePromptKeywords((prev) => [
+      ...prev.slice(0, index),
+      ...prev.slice(index + 1),
+    ]);
+    update(setNegativePromptResult, negativePromptKeywords);
   };
 
   const handleNew = () => {
@@ -93,31 +89,11 @@ function App() {
   };
 
   const handlePromptRemove = (index) => {
-    handleRemove(
-      null,
-      "prompt-keywords",
-      "prompt-result",
-      setPromptResult,
-      index,
-      setPromptKeywords,
-      promptKeywords
-    );
-  };
-
-  const handleRemove = (
-    button,
-    divId,
-    textareaId,
-    setter,
-    index,
-    setterKeywords,
-    keywords
-  ) => {
-    setterKeywords((prev) => [
+    setPromptKeywords((prev) => [
       ...prev.slice(0, index),
       ...prev.slice(index + 1),
     ]);
-    update(setter, keywords);
+    update(setPromptResult, promptKeywords);
   };
 
   const handleSave = async () => {
