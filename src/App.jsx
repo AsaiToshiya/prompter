@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import { createSignal } from "solid-js";
+import { createSignal, createMemo } from "solid-js";
 import Prompt from "./components/Prompt";
 
 let fileHandle = null;
@@ -7,7 +7,9 @@ let fileHandle = null;
 function App() {
   const [key, setKey] = createSignal([{}]);
   const [negativePromptKeywords, setNegativePromptKeywords] = createSignal([]);
-  const [negativePromptResult, setNegativePromptResult] = createSignal("");
+  const negativePromptResult = createMemo(() =>
+    negativePromptKeywords().join(", ")
+  );
   const [promptKeywords, setPromptKeywords] = createSignal([]);
   const [promptResult, setPromptResult] = createSignal("");
 
@@ -21,7 +23,6 @@ function App() {
   const reset = () => {
     setKey([{}]);
     setNegativePromptKeywords([]);
-    setNegativePromptResult("");
     setPromptKeywords([]);
     setPromptResult("");
   };
@@ -48,7 +49,6 @@ function App() {
 
   const handleNegativePromptAdd = (keyword) => {
     addKeywords(keyword.split(","), setNegativePromptKeywords);
-    update(setNegativePromptResult, negativePromptKeywords);
   };
 
   const handleNegativePromptRemove = (index) => {
@@ -56,7 +56,6 @@ function App() {
       ...prev.slice(0, index),
       ...prev.slice(index + 1),
     ]);
-    update(setNegativePromptResult, negativePromptKeywords);
   };
 
   const handleNew = () => {
@@ -80,7 +79,6 @@ function App() {
     addKeywords(data.prompt.keywords, setPromptKeywords);
     update(setPromptResult, promptKeywords);
     addKeywords(data.negativePrompt.keywords, setNegativePromptKeywords);
-    update(setNegativePromptResult, negativePromptKeywords);
   };
 
   const handlePromptAdd = (keyword) => {
