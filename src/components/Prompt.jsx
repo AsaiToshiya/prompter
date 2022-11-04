@@ -1,7 +1,8 @@
-import { createSignal, Index } from "solid-js";
+import { createSignal, createMemo, Index } from "solid-js";
 
 function Prompt(props) {
   const [keyword, setKeyword] = createSignal("");
+  const result = createMemo(() => props.keywords().join(", "));
 
   const handleAdd = () => {
     props.onAdd?.(keyword());
@@ -9,7 +10,7 @@ function Prompt(props) {
   };
 
   const handleCopy = (textareaId) => {
-    navigator.clipboard.writeText(props.result());
+    navigator.clipboard.writeText(result());
   };
 
   return (
@@ -44,7 +45,7 @@ function Prompt(props) {
         <textarea
           id={`${props.id}-result`}
           readonly
-          value={props.result()}
+          value={result()}
         ></textarea>
         &nbsp;
         <button onClick={() => handleCopy(`${props.id}-result`)}>Copy</button>

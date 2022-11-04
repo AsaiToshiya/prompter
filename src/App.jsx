@@ -7,11 +7,7 @@ let fileHandle = null;
 function App() {
   const [key, setKey] = createSignal([{}]);
   const [negativePromptKeywords, setNegativePromptKeywords] = createSignal([]);
-  const negativePromptResult = createMemo(() =>
-    negativePromptKeywords().join(", ")
-  );
   const [promptKeywords, setPromptKeywords] = createSignal([]);
-  const promptResult = createMemo(() => promptKeywords().join(", "));
 
   const addKeywords = (keywords, setterKeywords) => {
     setterKeywords((prev) => [
@@ -122,7 +118,6 @@ function App() {
             keywords={promptKeywords}
             onAdd={handlePromptAdd}
             onRemove={handlePromptRemove}
-            result={promptResult}
           />
         )}
       </For>
@@ -135,7 +130,6 @@ function App() {
             keywords={negativePromptKeywords}
             onAdd={handleNegativePromptAdd}
             onRemove={handleNegativePromptRemove}
-            result={negativePromptResult}
           />
         )}
       </For>
