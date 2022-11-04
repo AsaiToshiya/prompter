@@ -42,18 +42,13 @@ function App() {
     await writable.close();
   };
 
-  const update = (divId, textareaId, setter, keywords) => {
+  const update = (setter, keywords) => {
     setter(keywords().join(", "));
   };
 
   const handleNegativePromptAdd = (keyword) => {
     addKeywords(keyword.split(","), setNegativePromptKeywords);
-    update(
-      "negative-prompt-keywords",
-      "negative-prompt-result",
-      setNegativePromptResult,
-      negativePromptKeywords
-    );
+    update(setNegativePromptResult, negativePromptKeywords);
   };
 
   const handleNegativePromptRemove = (index) => {
@@ -87,19 +82,14 @@ function App() {
     const data = JSON.parse(contents);
     reset();
     addKeywords(data.prompt.keywords, setPromptKeywords);
-    update("prompt-keywords", "prompt-result", setPromptResult, promptKeywords);
+    update(setPromptResult, promptKeywords);
     addKeywords(data.negativePrompt.keywords, setNegativePromptKeywords);
-    update(
-      "negative-prompt-keywords",
-      "negative-prompt-result",
-      setNegativePromptResult,
-      negativePromptKeywords
-    );
+    update(setNegativePromptResult, negativePromptKeywords);
   };
 
   const handlePromptAdd = (keyword) => {
     addKeywords(keyword.split(","), setPromptKeywords);
-    update("prompt-keywords", "prompt-result", setPromptResult, promptKeywords);
+    update(setPromptResult, promptKeywords);
   };
 
   const handlePromptRemove = (index) => {
@@ -127,7 +117,7 @@ function App() {
       ...prev.slice(0, index),
       ...prev.slice(index + 1),
     ]);
-    update(divId, textareaId, setter, keywords);
+    update(setter, keywords);
   };
 
   const handleSave = async () => {
