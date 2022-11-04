@@ -11,7 +11,7 @@ function App() {
     negativePromptKeywords().join(", ")
   );
   const [promptKeywords, setPromptKeywords] = createSignal([]);
-  const [promptResult, setPromptResult] = createSignal("");
+  const promptResult = createMemo(() => promptKeywords().join(", "));
 
   const addKeywords = (keywords, setterKeywords) => {
     setterKeywords((prev) => [
@@ -24,7 +24,6 @@ function App() {
     setKey([{}]);
     setNegativePromptKeywords([]);
     setPromptKeywords([]);
-    setPromptResult("");
   };
 
   const save = async () => {
@@ -77,13 +76,11 @@ function App() {
     const data = JSON.parse(contents);
     reset();
     addKeywords(data.prompt.keywords, setPromptKeywords);
-    update(setPromptResult, promptKeywords);
     addKeywords(data.negativePrompt.keywords, setNegativePromptKeywords);
   };
 
   const handlePromptAdd = (keyword) => {
     addKeywords(keyword.split(","), setPromptKeywords);
-    update(setPromptResult, promptKeywords);
   };
 
   const handlePromptRemove = (index) => {
@@ -91,7 +88,6 @@ function App() {
       ...prev.slice(0, index),
       ...prev.slice(index + 1),
     ]);
-    update(setPromptResult, promptKeywords);
   };
 
   const handleSave = async () => {
