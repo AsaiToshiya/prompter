@@ -38,7 +38,15 @@
       </div>
       <br />
       Keywords:
-      <div id="prompt-keywords"></div>
+      <div class="row">
+        <div class="keywords" id="prompt-keywords"></div>
+        &nbsp;
+        <button
+          onclick="handleClear('prompt-keywords', 'prompt-result')"
+        >
+          Clear
+        </button>
+      </div>
       <br />
       Result:
       <div class="row">
@@ -68,7 +76,15 @@
       </div>
       <br />
       Keywords:
-      <div id="negative-prompt-keywords"></div>
+      <div class="row">
+        <div class="keywords" id="negative-prompt-keywords"></div>
+        &nbsp;
+        <button
+          onclick="handleClear('negative-prompt-keywords', 'negative-prompt-result')"
+        >
+          Clear
+        </button>
+      </div>
       <br />
       Result:
       <div class="row">

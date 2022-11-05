@@ -22,6 +22,7 @@ const createButton = (keyword, divId, textareaId) =>
 
 const createDiv = (id) =>
   Object.assign(document.createElement("div"), {
+    className: "keywords",
     id,
   });
 
@@ -104,6 +105,11 @@ const handleAdd = (inputId, divId, textareaId) => {
   replaceNode(newInput, input);
   addKeywords(input.value.split(","), divId, textareaId);
   update(divId, textareaId);
+};
+
+const handleClear = (divId, textareaId) => {
+  replaceNode(createDiv(divId), document.getElementById(divId));
+  replaceNode(createTextarea(textareaId), document.getElementById(textareaId));
 };
 
 const handleCopy = (textareaId) => {
