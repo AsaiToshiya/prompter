@@ -9,7 +9,7 @@ function Prompt(props) {
     setKeyword("");
   };
 
-  const handleCopy = (textareaId) => {
+  const handleCopy = () => {
     navigator.clipboard.writeText(result());
   };
 
@@ -48,7 +48,7 @@ function Prompt(props) {
           value={result()}
         ></textarea>
         &nbsp;
-        <button onClick={() => handleCopy(`${props.id}-result`)}>Copy</button>
+        <button onClick={() => handleCopy()}>Copy</button>
       </div>
     </>
   );
