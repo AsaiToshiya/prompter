@@ -25,10 +25,6 @@ function App() {
     await writable.close();
   };
 
-  const update = (setter, keywords) => {
-    setter(keywords().join(", "));
-  };
-
   const handleNegativePromptAdd = (keyword) => {
     setNegativePromptKeywords((prev) => [
       ...prev,
