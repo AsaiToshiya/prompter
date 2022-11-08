@@ -119,7 +119,6 @@ function App() {
       <For each={key()}>
         {() => (
           <Prompt
-            id="prompt"
             keywords={promptKeywords}
             onAdd={handlePromptAdd}
             onRemove={handlePromptRemove}
@@ -131,7 +130,6 @@ function App() {
       <For each={key()}>
         {() => (
           <Prompt
-            id="negative-prompt"
             keywords={negativePromptKeywords}
             onAdd={handleNegativePromptAdd}
             onRemove={handleNegativePromptRemove}

@@ -27,7 +27,7 @@ function Prompt(props) {
       </div>
       <br />
       Keywords:
-      <div id={`${props.id}-keywords`}>
+      <div>
         <Index each={props.keywords()}>
           {(keyword, i) => (
             <>
@@ -42,11 +42,7 @@ function Prompt(props) {
       <br />
       Result:
       <div class="row">
-        <textarea
-          id={`${props.id}-result`}
-          readonly
-          value={result()}
-        ></textarea>
+        <textarea readonly value={result()}></textarea>
         &nbsp;
         <button onClick={() => handleCopy()}>Copy</button>
       </div>
