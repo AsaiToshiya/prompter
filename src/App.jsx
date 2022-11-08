@@ -9,12 +9,6 @@ function App() {
   const [negativePromptKeywords, setNegativePromptKeywords] = createSignal([]);
   const [promptKeywords, setPromptKeywords] = createSignal([]);
 
-  const reset = () => {
-    setKey([{}]);
-    setNegativePromptKeywords([]);
-    setPromptKeywords([]);
-  };
-
   const save = async () => {
     const data = {
       prompt: {
@@ -51,7 +45,9 @@ function App() {
 
   const handleNew = () => {
     fileHandle = null;
-    reset();
+    setKey([{}]);
+    setNegativePromptKeywords([]);
+    setPromptKeywords([]);
   };
 
   const handleOpen = async () => {
@@ -66,7 +62,9 @@ function App() {
     const contents = await file.text();
 
     const newData = JSON.parse(contents);
-    reset();
+    setKey([{}]);
+    setNegativePromptKeywords([]);
+    setPromptKeywords([]);
     setPromptKeywords((prev) => [
       ...prev,
       ...newData.prompt.keywords.map((keyword) => keyword.trim()),
