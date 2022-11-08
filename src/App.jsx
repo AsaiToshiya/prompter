@@ -65,15 +65,15 @@ function App() {
     const file = await fileHandle.getFile();
     const contents = await file.text();
 
-    const data = JSON.parse(contents);
+    const newData = JSON.parse(contents);
     reset();
     setPromptKeywords((prev) => [
       ...prev,
-      ...data.prompt.keywords.map((keyword) => keyword.trim()),
+      ...newData.prompt.keywords.map((keyword) => keyword.trim()),
     ]);
     setNegativePromptKeywords((prev) => [
       ...prev,
-      ...data.negativePrompt.keywords.map((keyword) => keyword.trim()),
+      ...newData.negativePrompt.keywords.map((keyword) => keyword.trim()),
     ]);
   };
 
