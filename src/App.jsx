@@ -10,16 +10,16 @@ function App() {
   const [promptKeywords, setPromptKeywords] = createSignal([]);
 
   const save = async () => {
-    const data = {
+    const data = createMemo(() => ({
       prompt: {
         keywords: promptKeywords(),
       },
       negativePrompt: {
         keywords: negativePromptKeywords(),
       },
-    };
+    }));
 
-    const contents = JSON.stringify(data);
+    const contents = JSON.stringify(data());
     const writable = await fileHandle.createWritable();
     await writable.write(contents);
     await writable.close();
