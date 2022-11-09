@@ -24,8 +24,8 @@ function App() {
     await writable.close();
   };
 
-  const handleNegativePromptAdd = (keyword) => {
-    setNegativePromptKeywords((prev) => [
+  const handleAdd = (keyword, setter) => {
+    setter((prev) => [
       ...prev,
       ...keyword.split(",").map((keyword) => keyword.trim()),
     ]);
@@ -70,13 +70,6 @@ function App() {
     ]);
   };
 
-  const handlePromptAdd = (keyword) => {
-    setPromptKeywords((prev) => [
-      ...prev,
-      ...keyword.split(",").map((keyword) => keyword.trim()),
-    ]);
-  };
-
   const handlePromptRemove = (index) => {
     setPromptKeywords((prev) => [
       ...prev.slice(0, index),
@@ -113,7 +106,7 @@ function App() {
         {() => (
           <Prompt
             keywords={promptKeywords}
-            onAdd={handlePromptAdd}
+            onAdd={(keyword) => handleAdd(keyword, setPromptKeywords)}
             onRemove={handlePromptRemove}
           />
         )}
@@ -124,7 +117,7 @@ function App() {
         {() => (
           <Prompt
             keywords={negativePromptKeywords}
-            onAdd={handleNegativePromptAdd}
+            onAdd={(keyword) => handleAdd(keyword, setNegativePromptKeywords)}
             onRemove={handleNegativePromptRemove}
           />
         )}
