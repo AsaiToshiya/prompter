@@ -31,13 +31,6 @@ function App() {
     ]);
   };
 
-  const handleNegativePromptRemove = (index) => {
-    setNegativePromptKeywords((prev) => [
-      ...prev.slice(0, index),
-      ...prev.slice(index + 1),
-    ]);
-  };
-
   const handleNew = () => {
     fileHandle = null;
     setKey([{}]);
@@ -70,11 +63,8 @@ function App() {
     ]);
   };
 
-  const handlePromptRemove = (index) => {
-    setPromptKeywords((prev) => [
-      ...prev.slice(0, index),
-      ...prev.slice(index + 1),
-    ]);
+  const handleRemove = (index, setter) => {
+    setter((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
   };
 
   const handleSave = async () => {
@@ -107,7 +97,7 @@ function App() {
           <Prompt
             keywords={promptKeywords}
             onAdd={(keyword) => handleAdd(keyword, setPromptKeywords)}
-            onRemove={handlePromptRemove}
+            onRemove={(index) => handleRemove(index, setPromptKeywords)}
           />
         )}
       </For>
@@ -118,7 +108,7 @@ function App() {
           <Prompt
             keywords={negativePromptKeywords}
             onAdd={(keyword) => handleAdd(keyword, setNegativePromptKeywords)}
-            onRemove={handleNegativePromptRemove}
+            onRemove={(index) => handleRemove(index, setNegativePromptKeywords)}
           />
         )}
       </For>
