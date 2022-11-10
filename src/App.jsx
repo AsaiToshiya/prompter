@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import { createSignal, createMemo } from "solid-js";
+import { createStore, unwrap } from "solid-js/store";
 import Prompt from "./components/Prompt";
 
 let fileHandle = null;
@@ -8,17 +9,19 @@ function App() {
   const [key, setKey] = createSignal([{}]);
   const [negativePromptKeywords, setNegativePromptKeywords] = createSignal([]);
   const [promptKeywords, setPromptKeywords] = createSignal([]);
-  const data = createMemo(() => ({
+  const [data, setData] = createStore({
     prompt: {
       keywords: promptKeywords(),
     },
     negativePrompt: {
       keywords: negativePromptKeywords(),
     },
-  }));
+  });
 
   const save = async () => {
-    const contents = JSON.stringify(data());
+    setData("prompt", "keywords", promptKeywords());
+    setData("negativePrompt", "keywords", negativePromptKeywords());
+    const contents = JSON.stringify(unwrap(data));
     const writable = await fileHandle.createWritable();
     await writable.write(contents);
     await writable.close();
