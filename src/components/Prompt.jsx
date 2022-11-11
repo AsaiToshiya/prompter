@@ -2,7 +2,7 @@ import { createSignal, createMemo, Index } from "solid-js";
 
 function Prompt(props) {
   const [keyword, setKeyword] = createSignal("");
-  const result = createMemo(() => props.keywords().join(", "));
+  const result = createMemo(() => props.keywords.join(", "));
 
   const handleAdd = () => {
     props.onAdd?.(keyword());
@@ -28,7 +28,7 @@ function Prompt(props) {
       <br />
       Keywords:
       <div>
-        <Index each={props.keywords()}>
+        <Index each={props.keywords}>
           {(keyword, i) => (
             <>
               <button class="keyword" onClick={[props.onRemove, i]}>

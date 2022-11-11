@@ -11,16 +11,16 @@ function App() {
   const [promptKeywords, setPromptKeywords] = createSignal([]);
   const [data, setData] = createStore({
     prompt: {
-      keywords: promptKeywords(),
+      keywords: [],
     },
     negativePrompt: {
-      keywords: negativePromptKeywords(),
+      keywords: [],
     },
   });
 
   const save = async () => {
-    setData("prompt", "keywords", promptKeywords());
-    setData("negativePrompt", "keywords", negativePromptKeywords());
+    setData("prompt", "keywords", data.prompt.keywords);
+    setData("negativePrompt", "keywords", data.negativePrompt.keywords);
     const contents = JSON.stringify(unwrap(data));
     const writable = await fileHandle.createWritable();
     await writable.write(contents);
@@ -28,7 +28,7 @@ function App() {
   };
 
   const handleAdd = (keyword, setter) => {
-    setter((prev) => [
+    setData(setter, "keywords", (prev) => [
       ...prev,
       ...keyword.split(",").map((keyword) => keyword.trim()),
     ]);
@@ -37,8 +37,8 @@ function App() {
   const handleNew = () => {
     fileHandle = null;
     setKey([{}]);
-    setNegativePromptKeywords([]);
-    setPromptKeywords([]);
+    setData("negativePrompt", "keywords", []);
+    setData("prompt", "keywords", []);
   };
 
   const handleOpen = async () => {
@@ -54,20 +54,23 @@ function App() {
 
     const newData = JSON.parse(contents);
     setKey([{}]);
-    setNegativePromptKeywords([]);
-    setPromptKeywords([]);
-    setPromptKeywords((prev) => [
+    setData("negativePrompt", "keywords", []);
+    setData("prompt", "keywords", []);
+    setData("prompt", "keywords", (prev) => [
       ...prev,
       ...newData.prompt.keywords.map((keyword) => keyword.trim()),
     ]);
-    setNegativePromptKeywords((prev) => [
+    setData("negativePrompt", "keywords", (prev) => [
       ...prev,
       ...newData.negativePrompt.keywords.map((keyword) => keyword.trim()),
     ]);
   };
 
   const handleRemove = (index, setter) => {
-    setter((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
+    setData(setter, "keywords", (prev) => [
+      ...prev.slice(0, index),
+      ...prev.slice(index + 1),
+    ]);
   };
 
   const handleSave = async () => {
@@ -98,9 +101,9 @@ function App() {
       <For each={key()}>
         {() => (
           <Prompt
-            keywords={promptKeywords}
-            onAdd={(keyword) => handleAdd(keyword, setPromptKeywords)}
-            onRemove={(index) => handleRemove(index, setPromptKeywords)}
+            keywords={data.prompt.keywords}
+            onAdd={(keyword) => handleAdd(keyword, "prompt")}
+            onRemove={(index) => handleRemove(index, "prompt")}
           />
         )}
       </For>
@@ -109,9 +112,9 @@ function App() {
       <For each={key()}>
         {() => (
           <Prompt
-            keywords={negativePromptKeywords}
-            onAdd={(keyword) => handleAdd(keyword, setNegativePromptKeywords)}
-            onRemove={(index) => handleRemove(index, setNegativePromptKeywords)}
+            keywords={data.negativePrompt.keywords}
+            onAdd={(keyword) => handleAdd(keyword, "negativePrompt")}
+            onRemove={(index) => handleRemove(index, "negativePrompt")}
           />
         )}
       </For>
