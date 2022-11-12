@@ -7,8 +7,6 @@ let fileHandle = null;
 
 function App() {
   const [key, setKey] = createSignal([{}]);
-  const [negativePromptKeywords, setNegativePromptKeywords] = createSignal([]);
-  const [promptKeywords, setPromptKeywords] = createSignal([]);
   const [data, setData] = createStore({
     prompt: {
       keywords: [],
