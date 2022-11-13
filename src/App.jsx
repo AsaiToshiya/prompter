@@ -17,8 +17,6 @@ function App() {
   });
 
   const save = async () => {
-    setData("prompt", "keywords", data.prompt.keywords);
-    setData("negativePrompt", "keywords", data.negativePrompt.keywords);
     const contents = JSON.stringify(unwrap(data));
     const writable = await fileHandle.createWritable();
     await writable.write(contents);
