@@ -50,8 +50,6 @@ function App() {
 
     const newData = JSON.parse(contents);
     setKey([{}]);
-    setData("negativePrompt", "keywords", []);
-    setData("prompt", "keywords", []);
     setData("prompt", "keywords", (prev) => [
       ...prev,
       ...newData.prompt.keywords.map((keyword) => keyword.trim()),
