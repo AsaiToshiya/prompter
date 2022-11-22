@@ -4,17 +4,18 @@ import { createStore, unwrap } from "solid-js/store";
 import Prompt from "./components/Prompt";
 
 let fileHandle = null;
+const initialData = {
+  prompt: {
+    keywords: [],
+  },
+  negativePrompt: {
+    keywords: [],
+  },
+};
 
 function App() {
   const [key, setKey] = createSignal([{}]);
-  const [data, setData] = createStore({
-    prompt: {
-      keywords: [],
-    },
-    negativePrompt: {
-      keywords: [],
-    },
-  });
+  const [data, setData] = createStore(initialData);
 
   const save = async () => {
     const contents = JSON.stringify(unwrap(data));
