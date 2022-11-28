@@ -2,7 +2,7 @@ let fileHandle = null;
 
 const addKeyword = (keyword, divId, textareaId) => {
   const div = document.getElementById(divId);
-  const button = createButton(keyword.trim(), divId, textareaId);
+  const button = createButton(keyword, divId, textareaId);
   div.appendChild(button);
   div.appendChild(document.createTextNode("\n"));
 };
@@ -103,7 +103,11 @@ const handleAdd = (inputId, divId, textareaId) => {
   const newInput = createInput(inputId);
   const input = document.getElementById(inputId);
   replaceNode(newInput, input);
-  addKeywords(input.value.split(","), divId, textareaId);
+  addKeywords(
+    input.value.split(",").map((keyword) => keyword.trim()),
+    divId,
+    textareaId
+  );
   update(divId, textareaId);
 };
 
