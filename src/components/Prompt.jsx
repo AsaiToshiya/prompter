@@ -13,6 +13,10 @@ function Prompt(props) {
     navigator.clipboard.writeText(result());
   };
 
+  const handleIncreaseAttention = () => {
+    setKeyword((prev) => `(${prev})`);
+  };
+
   return (
     <>
       Keyword:
@@ -22,6 +26,8 @@ function Prompt(props) {
           value={keyword()}
           onInput={(e) => setKeyword(e.target.value)}
         />
+        &nbsp;
+        <button onclick={handleIncreaseAttention}>Increase Attention</button>
         &nbsp;
         <button onClick={handleAdd}>Add</button>
       </div>
