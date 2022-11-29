@@ -13,6 +13,10 @@ function Prompt(props) {
     navigator.clipboard.writeText(result());
   };
 
+  const handleDecreaseAttention = () => {
+    setKeyword((prev) => `[${prev}]`);
+  };
+
   const handleIncreaseAttention = () => {
     setKeyword((prev) => `(${prev})`);
   };
@@ -28,6 +32,8 @@ function Prompt(props) {
         />
         &nbsp;
         <button onclick={handleIncreaseAttention}>Increase Attention</button>
+        &nbsp;
+        <button onclick={handleDecreaseAttention}>Decrease Attention</button>
         &nbsp;
         <button onClick={handleAdd}>Add</button>
       </div>
