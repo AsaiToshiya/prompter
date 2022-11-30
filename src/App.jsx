@@ -59,11 +59,11 @@ function App() {
     setData("prompt", "keywords", []);
     setData("prompt", "keywords", (prev) => [
       ...prev,
-      ...newData.prompt.keywords.map((keyword) => keyword.trim()),
+      ...newData.prompt.keywords,
     ]);
     setData("negativePrompt", "keywords", (prev) => [
       ...prev,
-      ...newData.negativePrompt.keywords.map((keyword) => keyword.trim()),
+      ...newData.negativePrompt.keywords,
     ]);
   };
 
