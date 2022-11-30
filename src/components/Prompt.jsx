@@ -39,17 +39,21 @@ function Prompt(props) {
       </div>
       <br />
       Keywords:
-      <div>
-        <Index each={props.keywords}>
-          {(keyword, i) => (
-            <>
-              <button class="keyword" onClick={[props.onRemove, i]}>
-                {keyword()}
-              </button>
-              {"\n"}
-            </>
-          )}
-        </Index>
+      <div class="row">
+        <div class="keywords">
+          <Index each={props.keywords}>
+            {(keyword, i) => (
+              <>
+                <button class="keyword" onClick={[props.onRemove, i]}>
+                  {keyword()}
+                </button>
+                {"\n"}
+              </>
+            )}
+          </Index>
+        </div>
+        &nbsp;
+        <button onClick={props.onClear}>Clear</button>
       </div>
       <br />
       Result:

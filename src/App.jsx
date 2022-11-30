@@ -31,6 +31,10 @@ function App() {
     ]);
   };
 
+  const handleClear = (key) => {
+    setData(key, "keywords", []);
+  };
+
   const handleNew = () => {
     fileHandle = null;
     setKey([{}]);
@@ -100,6 +104,7 @@ function App() {
           <Prompt
             keywords={data.prompt.keywords}
             onAdd={(keyword) => handleAdd(keyword, "prompt")}
+            onClear={() => handleClear("prompt")}
             onRemove={(index) => handleRemove(index, "prompt")}
           />
         )}
@@ -111,6 +116,7 @@ function App() {
           <Prompt
             keywords={data.negativePrompt.keywords}
             onAdd={(keyword) => handleAdd(keyword, "negativePrompt")}
+            onClear={() => handleClear("negativePrompt")}
             onRemove={(index) => handleRemove(index, "negativePrompt")}
           />
         )}
