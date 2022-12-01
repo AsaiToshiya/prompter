@@ -15,7 +15,7 @@ const initialData = {
 
 function App() {
   const [key, setKey] = createSignal([{}]);
-  const [data, setData] = createStore(initialData);
+  const [data, setData] = createStore(JSON.parse(JSON.stringify(initialData)));
 
   const save = async () => {
     const contents = JSON.stringify(unwrap(data));
