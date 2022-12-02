@@ -38,8 +38,7 @@ function App() {
   const handleNew = () => {
     fileHandle = null;
     setKey([{}]);
-    setData("negativePrompt", "keywords", []);
-    setData("prompt", "keywords", []);
+    setData(JSON.parse(JSON.stringify(initialData)));
   };
 
   const handleOpen = async () => {
