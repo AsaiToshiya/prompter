@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import { createSignal, createMemo } from "solid-js";
+import { createSignal } from "solid-js";
 import { createStore, unwrap } from "solid-js/store";
 import Prompt from "./components/Prompt";
 
