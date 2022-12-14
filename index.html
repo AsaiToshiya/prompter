@@ -9,91 +9,9 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <div id="content">
-      <h1>Prompter</h1>
-
-      <button onclick="handleNew()">New</button>
-      <button onclick="handleOpen()">Open</button>
-      <button onclick="handleSave()">Save</button>
-      <button onclick="handleSaveAs()">Save As</button>
-
-      <h2>Prompt</h2>
-      Keyword:
-      <div class="row">
-        <input type="text" id="prompt-keyword" />
-        &nbsp;
-        <button onclick="handleIncreaseAttention('prompt-keyword')">
-          Increase Attention
-        </button>
-        &nbsp;
-        <button onclick="handleDecreaseAttention('prompt-keyword')">
-          Decrease Attention
-        </button>
-        &nbsp;
-        <button
-          onclick="handleAdd('prompt-keyword', 'prompt-keywords', 'prompt-result')"
-        >
-          Add
-        </button>
-      </div>
-      <br />
-      Keywords:
-      <div class="row">
-        <div class="keywords" id="prompt-keywords"></div>
-        &nbsp;
-        <button
-          onclick="handleClear('prompt-keywords', 'prompt-result')"
-        >
-          Clear
-        </button>
-      </div>
-      <br />
-      Result:
-      <div class="row">
-        <textarea id="prompt-result" readonly></textarea>
-        &nbsp;
-        <button onclick="handleCopy('prompt-result')">Copy</button>
-      </div>
-
-      <h2>Negative prompt</h2>
-      Keyword:
-      <div class="row">
-        <input type="text" id="negative-prompt-keyword" />
-        &nbsp;
-        <button onclick="handleIncreaseAttention('negative-prompt-keyword')">
-          Increase Attention
-        </button>
-        &nbsp;
-        <button onclick="handleDecreaseAttention('negative-prompt-keyword')">
-          Decrease Attention
-        </button>
-        &nbsp;
-        <button
-          onclick="handleAdd('negative-prompt-keyword', 'negative-prompt-keywords', 'negative-prompt-result')"
-        >
-          Add
-        </button>
-      </div>
-      <br />
-      Keywords:
-      <div class="row">
-        <div class="keywords" id="negative-prompt-keywords"></div>
-        &nbsp;
-        <button
-          onclick="handleClear('negative-prompt-keywords', 'negative-prompt-result')"
-        >
-          Clear
-        </button>
-      </div>
-      <br />
-      Result:
-      <div class="row">
-        <textarea id="negative-prompt-result"></textarea>
-        &nbsp;
-        <button onclick="handleCopy('negative-prompt-result')">Copy</button>
-      </div>
+    <div id="root">
     </div>
 
-    <script src="index.js"></script>
+    <script src="/src/index.jsx" type="module"></script>
   </body>
 </html>
