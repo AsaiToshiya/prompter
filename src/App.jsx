@@ -2,6 +2,14 @@ import { createSignal } from "solid-js";
 import { createStore, unwrap } from "solid-js/store";
 import Prompt from "./components/Prompt";
 
+const PICKER_OPTIONS = {
+  types: [
+    {
+      accept: { "text/json": [".json"] },
+    },
+  ],
+};
+
 let fileHandle = null;
 const initialData = {
   prompt: {
@@ -41,13 +49,7 @@ function App() {
   };
 
   const handleOpen = async () => {
-    [fileHandle] = await window.showOpenFilePicker({
-      types: [
-        {
-          accept: { "text/json": [".json"] },
-        },
-      ],
-    });
+    [fileHandle] = await window.showOpenFilePicker(PICKER_OPTIONS);
     const file = await fileHandle.getFile();
     const contents = await file.text();
 
@@ -68,13 +70,7 @@ function App() {
   };
 
   const handleSaveAs = async () => {
-    fileHandle = await window.showSaveFilePicker({
-      types: [
-        {
-          accept: { "text/json": [".json"] },
-        },
-      ],
-    });
+    fileHandle = await window.showSaveFilePicker(PICKER_OPTIONS);
     await save();
   };
 
