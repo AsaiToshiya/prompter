@@ -32,10 +32,8 @@ function App() {
   };
 
   const handleAdd = (keyword, setter) => {
-    setData(setter, "keywords", (prev) => [
-      ...prev,
-      ...keyword.split(",").map((keyword) => keyword.trim()),
-    ]);
+    const keywords = keyword.split(",").map((keyword) => keyword.trim());
+    setData(setter, "keywords", (prev) => [...prev, ...keywords]);
   };
 
   const handleClear = (key) => {
