@@ -11,7 +11,7 @@ const PICKER_OPTIONS = {
 };
 
 let fileHandle = null;
-const initialData = () => ({
+const createEmptyData = () => ({
   prompt: {
     keywords: [],
   },
@@ -22,7 +22,7 @@ const initialData = () => ({
 
 function App() {
   const [key, setKey] = createSignal([{}]);
-  const [data, setData] = createStore(initialData());
+  const [data, setData] = createStore(createEmptyData());
 
   const save = async () => {
     const contents = JSON.stringify(unwrap(data));
@@ -43,7 +43,7 @@ function App() {
   const handleNew = () => {
     fileHandle = null;
     setKey([{}]);
-    setData(initialData());
+    setData(createEmptyData());
   };
 
   const handleOpen = async () => {
