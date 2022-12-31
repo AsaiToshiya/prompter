@@ -31,9 +31,9 @@ function App() {
     await writable.close();
   };
 
-  const handleAdd = (keyword, setter) => {
+  const handleAdd = (keyword, key) => {
     const keywords = keyword.split(",").map((keyword) => keyword.trim());
-    setData(setter, "keywords", (prev) => [...prev, ...keywords]);
+    setData(key, "keywords", (prev) => [...prev, ...keywords]);
   };
 
   const handleClear = (key) => {
