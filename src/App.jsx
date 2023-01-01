@@ -56,8 +56,8 @@ function App() {
     setData(newData);
   };
 
-  const handleRemove = (index, setter) => {
-    setData(setter, "keywords", (prev) => [
+  const handleRemove = (index, key) => {
+    setData(key, "keywords", (prev) => [
       ...prev.slice(0, index),
       ...prev.slice(index + 1),
     ]);
