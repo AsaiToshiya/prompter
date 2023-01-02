@@ -31,7 +31,7 @@ function App() {
     await writable.close();
   };
 
-  const handleAdd = (keyword, key) => {
+  const handleAdd = (key, keyword) => {
     const keywords = keyword.split(",").map((keyword) => keyword.trim());
     setData(key, "keywords", (prev) => [...prev, ...keywords]);
   };
@@ -86,7 +86,7 @@ function App() {
         {() => (
           <Prompt
             keywords={data.prompt.keywords}
-            onAdd={(keyword) => handleAdd(keyword, "prompt")}
+            onAdd={(keyword) => handleAdd("prompt", keyword)}
             onClear={() => handleClear("prompt")}
             onRemove={(index) => handleRemove(index, "prompt")}
           />
@@ -98,7 +98,7 @@ function App() {
         {() => (
           <Prompt
             keywords={data.negativePrompt.keywords}
-            onAdd={(keyword) => handleAdd(keyword, "negativePrompt")}
+            onAdd={(keyword) => handleAdd("negativePrompt", keyword)}
             onClear={() => handleClear("negativePrompt")}
             onRemove={(index) => handleRemove(index, "negativePrompt")}
           />
