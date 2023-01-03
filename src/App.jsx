@@ -56,7 +56,7 @@ function App() {
     setData(newData);
   };
 
-  const handleRemove = (index, key) => {
+  const handleRemove = (key, index) => {
     setData(key, "keywords", (prev) => [
       ...prev.slice(0, index),
       ...prev.slice(index + 1),
@@ -88,7 +88,7 @@ function App() {
             keywords={data.prompt.keywords}
             onAdd={(keyword) => handleAdd("prompt", keyword)}
             onClear={() => handleClear("prompt")}
-            onRemove={(index) => handleRemove(index, "prompt")}
+            onRemove={(index) => handleRemove("prompt", index)}
           />
         )}
       </For>
@@ -100,7 +100,7 @@ function App() {
             keywords={data.negativePrompt.keywords}
             onAdd={(keyword) => handleAdd("negativePrompt", keyword)}
             onClear={() => handleClear("negativePrompt")}
-            onRemove={(index) => handleRemove(index, "negativePrompt")}
+            onRemove={(index) => handleRemove("negativePrompt", index)}
           />
         )}
       </For>
