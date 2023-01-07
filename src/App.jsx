@@ -11,6 +11,7 @@ const PICKER_OPTIONS = {
 };
 
 let fileHandle = null;
+
 const createEmptyData = () => ({
   prompt: {
     keywords: [],
